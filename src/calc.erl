@@ -1,5 +1,7 @@
 -module(calc).
 
+-include_lib("eunit/include/eunit.hrl").
+
 %% API exports
 -export([hello/0]).
 
@@ -9,6 +11,9 @@
 
 hello() ->
   "Hello, world!".
+
+eunit_test_() ->
+  [?_assertEqual(2, 1 + 1)].
 
 %%====================================================================
 %% Internal functions
