@@ -12,8 +12,12 @@
 hello() ->
   "Hello, world!".
 
+
+-ifdef(TEST).
 eunit_test_() ->
-  [?_assertEqual(2, 1 + 1)].
+  [?_assertEqual(2, 1 + 1),
+   ?_assertEqual("hello", "hello")].
+-endif.
 
 %%====================================================================
 %% Internal functions

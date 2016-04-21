@@ -1,9 +1,16 @@
 calc
 =====
 
-An OTP library
+A little lisp, implemented in Erlang.
 
-Build
------
+```sh
+# Build the project
+rebar3 compile
 
-    $ rebar3 compile
+# Run the tests
+rebar3 eunit
+
+# Run the test watcher
+# (requires rebar3_autotest)
+rebar3 as test autotest
+```
