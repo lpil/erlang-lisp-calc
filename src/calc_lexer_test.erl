@@ -9,7 +9,14 @@ tokenizer_test_() ->
       tokens("123")),
    ?_assertEqual(
       [{op, '+'}, {op, '-'}, {op, '*'}, {op, '/'}],
-      tokens("+ - * /"))].
+      tokens("+ - * /")),
+   ?_assertEqual(
+      [{param, '('}, {param, ')'}],
+      tokens("()")),
+   ?_assertEqual(
+      [{param, '('}, {op, '+'}, {number, 1}, {number, 2}, {param, ')'}],
+      tokens("(+ 1 2)"))
+  ].
 
 tokens(S) ->
   {ok, T, _} = calc_lexer:string(S),
