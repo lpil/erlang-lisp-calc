@@ -11,28 +11,29 @@ evaluate(Code) ->
 %% Private
 
 eval([Fn|Args]) ->
-  eval_sexp(Fn, Args);
+  Vals = lists:map(fun eval/1, Args),
+  apply_operator(Fn, Vals);
 eval([]) -> 0;
 eval(X)  -> X.
 
 
-eval_sexp('*', Args) ->
+apply_operator('*', Args) ->
   Mult = fun(X, Y) -> X * Y end,
   lists:foldl(Mult, 1, Args);
 
-eval_sexp('/', [Arg]) ->
+apply_operator('/', [Arg]) ->
   1 / Arg;
-eval_sexp('/', [Hd|Tl]) ->
+apply_operator('/', [Hd|Tl]) ->
   Div = fun(X, Y) -> Y / X end,
   lists:foldl(Div, Hd, Tl);
 
-eval_sexp('+', [Hd|Tail]) ->
+apply_operator('+', [Hd|Tail]) ->
   Add = fun(X, Y) -> X + Y end,
   lists:foldl(Add, Hd, Tail);
 
-eval_sexp('-', [Arg]) ->
+apply_operator('-', [Arg]) ->
   0 - Arg;
-eval_sexp('-', [Hd|Tail]) ->
+apply_operator('-', [Hd|Tail]) ->
   Sub = fun(X, Y) -> Y - X end,
   lists:foldl(Sub, Hd, Tail).
 
@@ -79,5 +80,10 @@ division_test_() ->
    ?_assertEqual(
       {ok, 2.0},
       evaluate("(/ 20 5 2)"))].
+
+nested_expression_test_() ->
+  [?_assertEqual(
+      {ok, 100},
+      evaluate("(* 10 (+ 10 (- 5)) 2)"))].
 
 -endif.
