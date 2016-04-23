@@ -5,16 +5,16 @@
 
 tokenizer_test_() ->
   [?_assertEqual(
-      [{number, 123}],
+      [{num, 123}],
       tokens("123")),
    ?_assertEqual(
       [{op, '+'}, {op, '-'}, {op, '*'}, {op, '/'}],
       tokens("+ - * /")),
    ?_assertEqual(
-      [{param, '('}, {param, ')'}],
+      ['(', ')'],
       tokens("()")),
    ?_assertEqual(
-      [{param, '('}, {op, '+'}, {number, 1}, {number, 2}, {param, ')'}],
+      ['(', {op, '+'}, {num, 1}, {num, 2}, ')'],
       tokens("(+ 1 2)"))
   ].
 
