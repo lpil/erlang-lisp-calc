@@ -12,7 +12,14 @@ parser_test_() ->
       parse("123")),
    ?_assertEqual(
       [],
-      parse("()"))].
+      parse("()")),
+   ?_assertEqual(
+      [123],
+      parse("(123)")),
+   ?_assertEqual(
+      ['+', 1, 2, 3],
+      parse("(+ 1 2 3)"))
+  ].
 
 parse(Code) ->
   {ok, Tokens, _} = calc_lexer:string(Code),
