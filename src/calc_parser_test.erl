@@ -18,7 +18,10 @@ parser_test_() ->
       parse("(123)")),
    ?_assertEqual(
       ['+', 1, 2, 3],
-      parse("(+ 1 2 3)"))
+      parse("(+ 1 2 3)")),
+   ?_assertEqual(
+      ['+', 3, ['-', 5, 1]],
+      parse("(+ 3 (- 5 1))"))
   ].
 
 parse(Code) ->
